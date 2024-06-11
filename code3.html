@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUREAU QR CODE</title>
+    <script src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .main-options {
+            margin-bottom: 20px;
+        }
+        .options-group {
+            margin-bottom: 15px;
+        }
+        .options-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .options-group input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .options-group input[type="radio"] {
+            margin-right: 10px;
+        }
+        .qr-preview {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+        .label-large {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BUREAU QR CODE</h1>
+        <div class="main-options">
+            <div class="options-group">
+                <label for="data">Data</label>
+                <input type="text" id="data" value="https://www.het-bureau.com">
+            </div>
+            <div class="options-group">
+                <label class="label-large">Dot Style</label>
+                <input type="radio" id="round-dots" name="dot-style" value="rounded" checked>
+                <label for="round-dots">Round</label>
+                <input type="radio" id="square-dots" name="dot-style" value="square">
+                <label for="square-dots">Square</label>
+            </div>
+            <div class="options-group">
+                <label class="label-large">Background</label>
+                <input type="radio" id="transparent-bg" name="background" value="transparent" checked>
+                <label for="transparent-bg">Transparent</label>
+                <input type="radio" id="white-bg" name="background" value="white">
+                <label for="white-bg">White</label>
+            </div>
+            <div class="options-group">
+                <label class="label-large">File Type</label>
+                <input type="radio" id="png" name="file-type" value="png" checked>
+                <label for="png">PNG</label>
+                <input type="radio" id="svg" name="file-type" value="svg">
+                <label for="svg">SVG</label>
+            </div>
+            <div class="options-group">
+                <label class="label-large">Color</label>
+                <input type="radio" id="color-black" name="color" value="black" checked>
+                <label for="color-black">Black</label>
+                <input type="radio" id="color-orange" name="color" value="orange">
+                <label for="color-orange">Orange (FF8F1C)</label>
+            </div>
+        </div>
+        <div class="qr-preview">
+            <div id="qr-code-canvas"></div>
+        </div>
+        <button class="download-btn" onclick="downloadQRCode()">Download</button>
+    </div>
+    
+    <script>
+        const qrCode = new QRCodeStyling({
+            width: 300,
+            height: 300,
+            data: "https://www.het-bureau.com",
+            image: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=148,fit=crop/A0xWoKQproH4jlO7/artboard-1-copy-11-mxBlgKQl51SKnvk0.png",
+            dotsOptions: {
+                color: "#000000",
+                type: "rounded"
+            },
+            backgroundOptions: {
+                color: "transparent"
+            },
+            cornersSquareOptions: {
+                type: "extra-rounded"
+            },
+            cornersDotOptions: {
+                type: "dot"
+            }
+        });
+
+        const updateQRCode = () => {
+            const data = document.getElementById("data").value;
+            const dotStyle = document.querySelector('input[name="dot-style"]:checked').value;
+            const background = document.querySelector('input[name="background"]:checked').value;
+            const backgroundColor = background === "transparent" ? "transparent" : "#ffffff";
+            const color = document.querySelector('input[name="color"]:checked').value;
+            const dotsColor = color === "orange" ? "#FF8F1C" : "#000000";
+
+            qrCode.update({
+                data: data,
+                dotsOptions: {
+                    color: dotsColor,
+                    type: dotStyle
+                },
+                backgroundOptions: {
+                    color: backgroundColor
+                },
+                image: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=148,fit=crop/A0xWoKQproH4jlO7/artboard-1-copy-11-mxBlgKQl51SKnvk0.png"
+            });
+
+            document.getElementById("qr-code-canvas").innerHTML = "";
+            qrCode.append(document.getElementById("qr-code-canvas"));
+        };
+
+        document.getElementById("data").addEventListener("input", updateQRCode);
+        document.querySelectorAll('input[name="dot-style"]').forEach(input => input.addEventListener("change", updateQRCode));
+        document.querySelectorAll('input[name="background"]').forEach(input => input.addEventListener("change", updateQRCode));
+        document.querySelectorAll('input[name="color"]').forEach(input => input.addEventListener("change", updateQRCode));
+
+        const downloadQRCode = () => {
+            const fileType = document.querySelector('input[name="file-type"]:checked').value;
+            qrCode.download({ extension: fileType });
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            qrCode.append(document.getElementById("qr-code-canvas"));
+        });
+    </script>
+</body>
+</html>
