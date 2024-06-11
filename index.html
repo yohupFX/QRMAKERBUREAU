@@ -32,9 +32,8 @@
             margin-bottom: 15px;
         }
         .options-group label {
-            display: block;
-            margin-bottom: 5px;
             font-weight: bold;
+            margin-right: 10px;
         }
         .options-group input[type="text"] {
             width: 100%;
@@ -42,7 +41,12 @@
             box-sizing: border-box;
         }
         .options-group input[type="radio"] {
-            margin-right: 10px;
+            margin-right: 5px;
+        }
+        .options-inline {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
         }
         .qr-preview {
             margin: 20px 0;
@@ -65,6 +69,8 @@
         }
         .label-large {
             font-size: 1.2em;
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -78,31 +84,48 @@
             </div>
             <div class="options-group">
                 <label class="label-large">Dot Style</label>
-                <input type="radio" id="round-dots" name="dot-style" value="rounded" checked>
-                <label for="round-dots">Round</label>
-                <input type="radio" id="square-dots" name="dot-style" value="square">
-                <label for="square-dots">Square</label>
+                <div class="options-inline">
+                    <input type="radio" id="round-dots" name="dot-style" value="rounded" checked>
+                    <label for="round-dots"><em>Round</em></label>
+                </div>
+              <div class="options-inline">
+                    <input type="radio" id="square-dots" name="dot-style" value="square">
+                  <label for="square-dots"><em>Square</em></label>
+                </div>
             </div>
             <div class="options-group">
                 <label class="label-large">Background</label>
-                <input type="radio" id="transparent-bg" name="background" value="transparent" checked>
-                <label for="transparent-bg">Transparent</label>
-                <input type="radio" id="white-bg" name="background" value="white">
-                <label for="white-bg">White</label>
+                <div class="options-inline">
+                    <input type="radio" id="transparent-bg" name="background" value="transparent" checked>
+                    <label for="transparent-bg"><em>Transparent</em></label>
+                </div>
+              <div class="options-inline">
+                    <input type="radio" id="white-bg" name="background" value="white">
+                  <label for="white-bg"><em>White</em></label>
+                </div>
             </div>
             <div class="options-group">
                 <label class="label-large">File Type</label>
-                <input type="radio" id="png" name="file-type" value="png" checked>
-                <label for="png">PNG</label>
-                <input type="radio" id="svg" name="file-type" value="svg">
-                <label for="svg">SVG</label>
+                <div class="options-inline">
+                    <input type="radio" id="png" name="file-type" value="png" checked>
+                    <label for="png"><em>PNG</em></label>
+                </div>
+              <div class="options-inline">
+                    <input type="radio" id="svg" name="file-type" value="svg">
+                  <label for="svg"><em>SVG</em></label>
+                </div>
             </div>
+
             <div class="options-group">
                 <label class="label-large">Color</label>
-                <input type="radio" id="color-black" name="color" value="black" checked>
-                <label for="color-black">Black</label>
-                <input type="radio" id="color-orange" name="color" value="orange">
-                <label for="color-orange">Orange (FF8F1C)</label>
+                <div class="options-inline">
+                    <input type="radio" id="color-black" name="color" value="black" checked>
+                    <label for="color-black"><em>Black</em></label>
+                </div>
+              <div class="options-inline">
+                    <input type="radio" id="color-orange" name="color" value="orange">
+                <label for="color-orange"><em>Orange (FF8F1C)</em></label>
+                </div>
             </div>
         </div>
         <div class="qr-preview">
